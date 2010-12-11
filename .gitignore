@@ -1,0 +1,9 @@
+#dirs
+/.idea
+/cfusion
+/railo
+/ROOT
+
+#extensions
+*.class
+*.iml
