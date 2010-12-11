@@ -5,6 +5,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import com.mongodb.ServerAddress;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,4 +40,38 @@ public class MongoCache {
 
     }
 
+    public void put(String key,String value,int expires){
+
+        /*
+        make an upsert to store the object
+        add expires metadata  {key,value,expires}
+         */
+    }
+
+    public String get(String key) throws IOException{
+
+        /*
+        clear by expires time _clearExpired()
+        get the value by key
+        if nto found throw exception
+
+         */
+       return null;
+
+    }
+
+    public String clear(String pattern){
+
+        /*
+        clear by matching the pattern that is list and need to be splitted
+
+         */
+        return null;
+    }
+
+
+
+    private void _clearExpired(){
+
+    }
 }

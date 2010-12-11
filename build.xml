@@ -1,0 +1,77 @@
+<project name="com.realistiq.cache" default="run">
+
+    <property file="project.properties"/>
+
+    <target name="clean">
+
+        <echo message="removing latest build"/>
+        <delete file="${basedir}/build/${project.jar}"/>
+
+    </target>
+
+    <target name="makeJar" depends="clean">
+
+        <echo message="Compiling src"/>
+        <path id="master-classpath">
+            <fileset dir="lib">
+                <include name="*.jar"/>
+             </fileset>
+        </path>
+        <javac srcdir="${basedir}/src" destdir="${basedir}/bin">
+             <classpath refid="master-classpath"/>
+        </javac>
+
+        <echo message="make jar - ${basedir}/build/${project.jar}"/>
+        <jar basedir="${basedir}/bin" destfile="${basedir}/build/${project.jar}" />
+
+    </target>
+
+    <target name="deploy" depends="makeJar">
+
+        <echo message="Replace files in ${basedir}${railo.libs}" />
+        <delete dir="${basedir}${railo.libs}">
+           <include name="${project.jar}"/>
+           <include name="${project.mongojar}"/>
+        </delete>
+        <copy todir="${basedir}${railo.libs}">
+            <fileset dir="${basedir}/lib/" includes="*"/>
+            <fileset dir="${basedir}/build/" includes="${project.jar}"/>
+        </copy>
+
+        <echo message="Replace files in ${basedir}${cfusion.libs}"/>
+        <delete dir="${basedir}${cfusion.libs}">
+           <include name="${project.jar}"/>
+           <include name="${project.mongojar}"/>
+        </delete>
+        <copy todir="${basedir}${cfusion.libs}">
+            <fileset dir="${basedir}/lib/" includes="*"/>
+            <fileset dir="${basedir}/build/" includes="${project.jar}"/>
+        </copy>
+
+        <echo message="deploy com.realitiq"/>
+        <copy todir="${basedir}${railo.www}/com" overwrite="true">
+            <fileset dir="${basedir}/com" />
+        </copy>
+        <copy todir="${basedir}${cfusion.www}/com" overwrite="true">
+            <fileset dir="${basedir}/com" />
+        </copy>
+
+        <echo message="Replace test app"/>
+        <mkdir dir="${basedir}/${railo.www}/test"/>
+        <delete dir="${basedir}/${railo.www}/test/" includes="*"/>
+        <copy todir="${basedir}/${railo.www}/test" overwrite="true">
+            <fileset dir="${basedir}/test/" includes="*"/>
+        </copy>
+
+        <mkdir dir="${basedir}/${cfusion.www}/test"/>
+        <delete dir="${basedir}/${cfusion.www}/test/" includes="*"/>
+        <copy todir="${basedir}/${cfusion.www}/test" overwrite="true">
+            <fileset dir="${basedir}/test/" includes="*"/>
+        </copy>
+
+
+    </target>
+
+    <target name="run" depends="deploy"/>
+
+</project>

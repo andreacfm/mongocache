@@ -1,4 +1,4 @@
-<cfset dbLib = createObject("component","/global/components/lib/db")>
+<cfset dbLib = createObject("component","com.realistiq.db")>
 
 <cftimer label="db.cfc">
 	<cfloop from="1" to="10" index="i">
