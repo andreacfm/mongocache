@@ -16,7 +16,7 @@ public class MongoCache {
     private DB _db;
     private DBCollection _coll;
 
-    public void init(String addresses){
+    public MongoCache(String addresses){
 
         List<ServerAddress> addr = new ArrayList<ServerAddress>();
         String[] hosts = addresses.split("\\n");
