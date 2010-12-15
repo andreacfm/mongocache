@@ -101,10 +101,11 @@ public class MongoCache {
         clearExpired();
 
         //get the item
-        BasicDBObject q = new BasicDBObject("key",key.toLowerCase());
+        BasicDBObject q = new BasicDBObject();
+        q.put("key",key.toLowerCase());
         DBObject obj = _coll.findOne(q);
 
-        if(obj == null){
+       if(obj == null){
             throw new IOException("Key [" + key + "] does not exists in this cache.");
         }
 
@@ -112,17 +113,6 @@ public class MongoCache {
 
        return value;
 
-    }
-
-
-
-    public String clear(String pattern){
-
-        /*
-        clear by matching the pattern that is list and need to be splitted
-
-         */
-        return null;
     }
 
     /**

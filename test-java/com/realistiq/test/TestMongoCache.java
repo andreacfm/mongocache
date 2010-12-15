@@ -18,8 +18,7 @@ public class TestMongoCache {
 
     @Before
     public void setUp() {
-        _mc = new MongoCache();
-        _mc.init(host);
+        _mc = new MongoCache(host);
     }
 
     @After
