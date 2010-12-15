@@ -1,5 +1,6 @@
-<cfset dbCache = createObject("component","com.realistiq.Db").init('localhost:27017')>
+# insert query and cache forever <br/>
+# no tags <br>/
+# should be cache from second call <br/>
 
-<!---insert query and cache forever no tags--->
-<cfset dbCache.doQuery('realistiq','select * from tags',0)>
-
+<cfset res = application.dbCache.doQuery('realistiq','select * from tags',0)>
+<cfdump var="#res#"/>
