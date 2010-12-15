@@ -18,12 +18,9 @@
 
 		<cftry>
 			<cfset LOCAL.key = Hash(ARGUMENTS.sql)>
-			<cfset LOCAL.collection = LCase(ARGUMENTS.datasource)>
 
 			<cftrace category="doQuery" text="Before _cacheGet()">
-
 			<cfset LOCAL.getCacheStart = GetTickCount()>
-			<cftrace text="#this.cacheExists(LOCAL.key)#">
 			<cfif this.cacheExists(LOCAL.key)>
 			    <cfset LOCAL.recordSet = this.cacheGet(LOCAL.key)>
 			</cfif>
@@ -48,7 +45,7 @@
 				</cfquery>
 
 				<cfset LOCAL.result.key = LOCAL.key>
-				<cfset this.cachePut(LOCAL.key, serializeJSON(LOCAL.recordSet), ARGUMENTS.lifespan, ARGUMENTS.tableList)>
+				<cfset this.cachePut(LOCAL.key,LOCAL.recordSet, ARGUMENTS.lifespan, ARGUMENTS.tableList)>
 			</cfif>
 
 			<cfset LOCAL.retVal.recordSet = LOCAL.recordSet>

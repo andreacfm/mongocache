@@ -9,20 +9,25 @@ component{
 
     public any function cacheGet(String key){
         var result = variables.driver.get(key);
-        return  deserializeJSON(result);
+        return  deserializeJSON(result,false);
     }
 
     public boolean function cacheExists(String key){
         return variables.driver.exists(key);
     }
 
-    public void function cachePut(String key, String data, Numeric lifespan=0, String tags=""){
+    public void function cachePut(String key, Any data, Numeric lifespan=0, String tags=""){
         var tagsArray = listToArray(tags);
-        variables.driver.put(key,data,lifespan,tagsArray);
+        var json = serializeJSON(data,true);
+        variables.driver.put(key,json,lifespan,tagsArray);
     }
 
     public void function clearTags(String tags){
         variables.driver.clearTags(tags);
+    }
+
+    public void function flush(){
+        variables.driver.flush();
     }
 
 }
