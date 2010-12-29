@@ -4,6 +4,7 @@ import com.mongodb.*;
 import com.realistiq.cache.MongoCache;
 import org.junit.*;
 import junit.framework.JUnit4TestAdapter;
+import org.omg.CORBA.portable.Streamable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,10 +16,12 @@ public class TestMongoCache {
 
     private MongoCache _mc;
     private String host = "localhost:27017";
+    private String db = "realistiq_db";
+    private String coll = "realistiq_collection";
 
     @Before
     public void setUp() {
-        _mc = new MongoCache(host);
+        _mc = new MongoCache(host,db,coll);
     }
 
     @After

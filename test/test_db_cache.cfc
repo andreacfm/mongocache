@@ -4,6 +4,7 @@ component extends="mxunit.framework.TestCase"{
 
 	public void function setUp(){
 		_db = createObject("com.realistiq.Db").init("localhost:27017");
+		_db.flush();
 	}
 
 	public void function tearDown(){

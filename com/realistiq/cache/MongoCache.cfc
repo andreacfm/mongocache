@@ -2,8 +2,8 @@ component{
 
     import "com.realistiq.cache.*";
 
-    public com.realistiq.cache.MongoCache function init(String addresses){
-        variables.driver = createObject('java','com.realistiq.cache.MongoCache').init(arguments.addresses);
+    public com.realistiq.cache.MongoCache function init(String addresses,String database="com_realistiq_db",String collection="com_realistiq_collection"){
+        variables.driver = createObject('java','com.realistiq.cache.MongoCache').init(arguments.addresses,arguments.database,arguments.collection);
         return this;
     }
 

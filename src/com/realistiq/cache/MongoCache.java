@@ -11,12 +11,10 @@ public class MongoCache {
 
 
     private Mongo _mongo;
-    private String DB_NAME = "com_realistiq_cache_db";
-    private String COLL_NAME = "com_realistiq_cache_collection";
     private DB _db;
     private DBCollection _coll;
 
-    public MongoCache(String addresses){
+    public MongoCache(String addresses,String database,String collection){
 
         List<ServerAddress> addr = new ArrayList<ServerAddress>();
         String[] hosts = addresses.split("\\n");
@@ -30,16 +28,13 @@ public class MongoCache {
         }
 
         _mongo = new Mongo(addr);
-        _db = _mongo.getDB(DB_NAME);
-        _coll = _db.getCollection(COLL_NAME);
+        _db = _mongo.getDB(database);
+        _coll = _db.getCollection(collection);
 
         //create the indexes
         _coll.ensureIndex(new BasicDBObject("key",1));
         _coll.ensureIndex(new BasicDBObject("expires",1));
         _coll.ensureIndex(new BasicDBObject("tags",1));
-
-        // drop the collection on startup
-        _coll.drop();
 
     }
 
@@ -177,14 +172,13 @@ public class MongoCache {
      * @return
      */
     public boolean exists(String key){
-
-        //clean
+       //clean
         clearExpired();
+        //get the item
+        DBCursor obj = _coll.find(new BasicDBObject("key",key.toLowerCase()), new BasicDBObject("key",1));
 
-        try {
-            get(key);
-        } catch (IOException e) {
-           return false;
+       if(obj.size() == 0){
+            return false;
         }
 
         return true;
