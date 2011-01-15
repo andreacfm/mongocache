@@ -26,6 +26,10 @@ component{
         variables.driver.clearTags(tags);
     }
 
+    public void function cacheRemove(String key){
+        variables.driver.remove(key);
+    }
+
     public void function flush(){
         variables.driver.flush();
     }

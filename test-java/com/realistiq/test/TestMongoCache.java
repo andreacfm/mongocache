@@ -185,4 +185,14 @@ public class TestMongoCache {
 
     }
 
+    @Test
+    public void test_remove(){
+
+        _mc.put("mykey","value",0);
+        assertTrue(_mc.exists("mykey"));
+
+        _mc.remove("mykey");
+        assertTrue(!_mc.exists("mykey"));
+    }
+
 }

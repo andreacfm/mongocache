@@ -111,6 +111,14 @@ public class MongoCache {
     }
 
     /**
+     * Remove a key from the cache db
+     * @param key
+     */
+    public void remove(String key){
+        _coll.remove(new BasicDBObject("key",key));
+    }
+
+    /**
      * Drop the entire cache collection
      */
     public void flush(){

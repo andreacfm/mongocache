@@ -40,6 +40,15 @@ component extends="mxunit.framework.TestCase"{
 
     }
 
+    public void function test_remove(){
+        var str =  {name = 'Andrea'};
+        _mc.cachePut('key',str);
+        assertTrue(_mc.cacheExists('key'));
+        _mc.cacheRemove("key");
+        assertTrue(not _mc.cacheExists('key'));
+
+    }
+
     public void function test_clear_tags(){
 
         _mc.cachePut('key1','value1',0,'one,two');
