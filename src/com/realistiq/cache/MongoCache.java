@@ -51,7 +51,7 @@ public class MongoCache {
         Long life = new Long(0);
 
         if(lifespan > 0){
-            life = lifespan*100 + created;
+            life = lifespan*60000 + created;
         }
 
         BasicDBObject obj = new BasicDBObject();
