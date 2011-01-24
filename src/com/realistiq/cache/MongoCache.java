@@ -39,7 +39,7 @@ public class MongoCache {
     }
 
     /**
-     * Save a new cache object( overwrite if teh same key already exists)
+     * Save a new cache object( overwrite if the same key already exists)
      * @param key
      * @param value
      * @param lifespan  Number of seconds. 0 = no end
@@ -65,7 +65,7 @@ public class MongoCache {
     }
 
     /**
-     * Save a new cache object( overwrite if teh same key already exists)
+     * Save a new cache object( overwrite if the same key already exists)
      * @param key
      * @param value
      */
@@ -74,7 +74,7 @@ public class MongoCache {
     }
 
     /**
-     * Save a new cache object( overwrite if teh same key already exists)
+     * Save a new cache object( overwrite if the same key already exists)
      * @param key
      * @param value
      * @param lifespan  Number of seconds. 0 = no end
