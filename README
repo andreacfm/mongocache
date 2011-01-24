@@ -1,1 +1,7 @@
-This file was created by IntelliJ IDEA 10.0.1 for binding GitHub repository
+h3. MongoCache
+
+p. MongoCache has been donated to the community by realistiQ.com that paid the development.
+
+p. MongoCache is a very light but powerfull caching layer for mongoDB engine. The layer is built on top of the Java mongoDB client.
+A coldfusion engine agnostic bridge is already been implemented and tested.
+
