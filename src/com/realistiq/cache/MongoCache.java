@@ -115,7 +115,7 @@ public class MongoCache {
      * @param key
      */
     public void remove(String key){
-        _coll.remove(new BasicDBObject("key",key));
+        _coll.remove(new BasicDBObject("key",key.toLowerCase()));
     }
 
     /**
