@@ -191,7 +191,7 @@ public class TestMongoCache {
         _mc.put("mykey","value",0);
         assertTrue(_mc.exists("mykey"));
 
-        _mc.remove("mykey");
+        _mc.remove("myKey");
         assertTrue(!_mc.exists("mykey"));
     }
 
