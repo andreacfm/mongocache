@@ -1,4 +1,4 @@
-<project name="mongocache" default="run">
+<project name="com.realistiq.cache" default="run">
     <property file="project.properties"/>
 
     <target name="clean">
@@ -13,6 +13,7 @@
                 <include name="*.jar"/>
              </fileset>
         </path>
+
         <javac srcdir="${basedir}/src" destdir="${basedir}/bin">
              <classpath refid="master-classpath"/>
         </javac>

@@ -9,13 +9,11 @@ import java.util.List;
 
 public class MongoCache {
 
-
     private Mongo _mongo;
     private DB _db;
     private DBCollection _coll;
 
-    public MongoCache(String addresses,String database,String collection){
-
+    public MongoCache(String addresses,String database,String collection, boolean slaveok){
         List<ServerAddress> addr = new ArrayList<ServerAddress>();
         String[] hosts = addresses.split("\\n");
 
@@ -28,6 +26,12 @@ public class MongoCache {
         }
 
         _mongo = new Mongo(addr);
+
+        //if using replica sets then allow query of slaves instead of just master
+        if(slaveok){
+        	_mongo.slaveOk();
+        }
+
         _db = _mongo.getDB(database);
         _coll = _db.getCollection(collection);
 
@@ -35,7 +39,6 @@ public class MongoCache {
         _coll.ensureIndex(new BasicDBObject("key",1));
         _coll.ensureIndex(new BasicDBObject("expires",1));
         _coll.ensureIndex(new BasicDBObject("tags",1));
-
     }
 
     /**
@@ -46,7 +49,6 @@ public class MongoCache {
      * @param tags
      */
     public void put(String key,String value,int lifespan,List tags){
-
         Long created = System.currentTimeMillis();
         Long life = new Long(0);
 
@@ -61,7 +63,6 @@ public class MongoCache {
         obj.put("tags", tags);
 
         _coll.insert(obj);
-
     }
 
     /**
@@ -91,7 +92,6 @@ public class MongoCache {
      * @throws IOException
      */
     public String get(String key) throws IOException{
-
         //expired items must be removed
         clearExpired();
 
