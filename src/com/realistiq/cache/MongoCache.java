@@ -16,6 +16,12 @@ public class MongoCache {
 
     public MongoCache(String addresses,String database,String collection){
 
+        this(addresses,database,collection,false);
+
+    }
+
+    public MongoCache(String addresses,String database,String collection,boolean slaveok){
+
         List<ServerAddress> addr = new ArrayList<ServerAddress>();
         String[] hosts = addresses.split("\\n");
 
@@ -28,6 +34,12 @@ public class MongoCache {
         }
 
         _mongo = new Mongo(addr);
+
+        //if using replica sets then allow query of slaves instead of just master
+        if(slaveok){
+            _mongo.slaveOk();
+        }
+
         _db = _mongo.getDB(database);
         _coll = _db.getCollection(collection);
 
@@ -185,7 +197,7 @@ public class MongoCache {
         //get the item
         DBCursor obj = _coll.find(new BasicDBObject("key",key.toLowerCase()), new BasicDBObject("key",1));
 
-       if(obj.size() == 0){
+        if(obj.size() == 0){
             return false;
         }
 
