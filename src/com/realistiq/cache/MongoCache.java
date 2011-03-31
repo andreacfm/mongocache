@@ -185,7 +185,7 @@ public class MongoCache {
         //get the item
         DBCursor obj = _coll.find(new BasicDBObject("key",key.toLowerCase()), new BasicDBObject("key",1));
 
-       if(obj.size() == 0){
+        if(obj.size() == 0){
             return false;
         }
 
